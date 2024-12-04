@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentledger.HomeController">
+<AnchorPane fx:id="savings" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentledger.HomeController">
    <children>
       <HBox layoutX="-9.0" layoutY="-2.0" prefHeight="56.0" prefWidth="612.0" style="-fx-background-color: #E96151;" />
-      <Button fx:id="button_logout" layoutX="526.0" layoutY="14.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="59.0" style="-fx-background-color: #E4E4E3; -fx-border-color: #F9F8F6;" text="Logout">
+      <Button fx:id="button_logout" layoutX="519.0" layoutY="14.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="66.0" style="-fx-background-color: #E4E4E3; -fx-border-color: #F9F8F6; -fx-cursor: hand;" text="LOGOUT">
          <font>
             <Font name="Arial Rounded MT Bold" size="11.0" />
          </font>
@@ -19,20 +19,55 @@
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="label_welcome1" alignment="TOP_CENTER" layoutX="14.0" layoutY="75.0" text="Balance" textFill="#6b6969">
+      <Label fx:id="label_balance" alignment="TOP_CENTER" layoutX="14.0" layoutY="75.0" text="Balance : " textFill="#6b6969">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="label_welcome11" alignment="TOP_CENTER" layoutX="206.0" layoutY="75.0" text="Savings" textFill="#6b6969">
+      <Label fx:id="label_savings" alignment="TOP_CENTER" layoutX="212.0" layoutY="75.0" text="Savings :" textFill="#6b6969">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="label_welcome111" alignment="TOP_CENTER" layoutX="399.0" layoutY="75.0" text="Loans" textFill="#6b6969">
+      <Label fx:id="label_loans" alignment="TOP_CENTER" layoutX="427.0" layoutY="75.0" text="Loans : " textFill="#6b6969">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Label>
+      <Label layoutX="199.0" layoutY="138.0" text="T R A N S A C T I O N S">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="button_debit" layoutX="57.0" layoutY="200.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="102.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Debit" textFill="WHITE">
+         <font>
+            <Font name="Candara" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="button_credit" layoutX="244.0" layoutY="200.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="102.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Credit" textFill="WHITE">
+         <font>
+            <Font name="Candara" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="button_history" layoutX="425.0" layoutY="200.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="102.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="History" textFill="WHITE">
+         <font>
+            <Font name="Candara" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="button_savings" layoutX="57.0" layoutY="309.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="102.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Savings" textFill="WHITE">
+         <font>
+            <Font name="Candara" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="button_credit_loans" layoutX="244.0" layoutY="309.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="102.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Credit Loans" textFill="WHITE">
+         <font>
+            <Font name="Candara" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="button_DPI" layoutX="425.0" layoutY="309.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Deposit Interest Predictor" textFill="WHITE">
+         <font>
+            <Font name="Candara" size="10.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

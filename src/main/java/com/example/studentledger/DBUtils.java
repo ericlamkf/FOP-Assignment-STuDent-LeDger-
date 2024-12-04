@@ -13,7 +13,7 @@ import java.sql.*;
 
 public class DBUtils {
 
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String name) {
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String name, int balance, int savings, int loans) {
         Parent root = null;
 
         if(name!=null) {
@@ -22,6 +22,7 @@ public class DBUtils {
                 root = loader.load();
                 HomeController homeController = loader.getController();
                 homeController.setUserInformation(name);
+                homeController.setBalance(balance, savings, loans);
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -62,7 +63,7 @@ public class DBUtils {
                 psInsert.setString(3, password);
                 psInsert.executeUpdate();
 
-                changeScene(event, "home.fxml", "Welcome Back", name);
+                changeScene(event, "home.fxml", "Welcome Back", name, 0, 0, 0 );
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -98,13 +99,13 @@ public class DBUtils {
         }
     }
 
-    public static void loginInUser(ActionEvent event, String name, String email, String password) {
+    public static void loginInUser(ActionEvent event, String name, String email, String password, int balance, int savings, int loans) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
-            preparedStatement = connection.prepareStatement("SELECT password FROM users WHERE name = ? AND email = ?");
+            preparedStatement = connection.prepareStatement("SELECT password,balance, savings, loans FROM users WHERE name = ? AND email = ?");
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, email);
             resultSet = preparedStatement.executeQuery();
@@ -119,7 +120,10 @@ public class DBUtils {
                     String retrivedPassword = resultSet.getString("password");
 
                     if(retrivedPassword.equals(password)){
-                        changeScene(event, "home.fxml", "Welcome Back", name);
+                        balance = resultSet.getInt("balance");
+                        savings = resultSet.getInt("savings");
+                        loans = resultSet.getInt("loans");
+                        changeScene(event, "home.fxml", "Welcome Back", name, balance, savings, loans);
                     }else{
                         System.out.println("Incorrect password");
                         Alert alert = new Alert(Alert.AlertType.ERROR);

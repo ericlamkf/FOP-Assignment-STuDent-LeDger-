@@ -24,20 +24,22 @@ public class loginController implements Initializable {
     @FXML
     private TextField tf_password;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         button_login.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.loginInUser(event, tf_name.getText(), tf_email.getText(), tf_password.getText());
+                DBUtils.loginInUser(event, tf_name.getText(), tf_email.getText(), tf_password.getText(),0,0,0);
             }
         });
 
         button_sign_up.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.changeScene(event, "sign-up.fxml", "Sign Up", null);
+
+                DBUtils.changeScene(event, "sign-up.fxml", "Sign Up", null,0,0,0 );
             }
         });
 

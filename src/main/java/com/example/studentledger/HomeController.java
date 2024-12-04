@@ -17,6 +17,12 @@ public class HomeController implements Initializable {
 
     @FXML
     private Label label_welcome;
+    @FXML
+    private Label label_balance;
+    @FXML
+    private Label label_savings;
+    @FXML
+    private Label label_loans;
 
 
     @Override
@@ -25,13 +31,19 @@ public class HomeController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.changeScene(event, "login.fxml", "Log In", null);
+                DBUtils.changeScene(event, "login.fxml", "Log In", null,0,0,0);
             }
         });
 
     }
 
-    public void setUserInformation(String name){
+    public void setUserInformation(String name) {
         label_welcome.setText("Welcome "+ name + " ! ");
+    }
+
+    public void setBalance(int balance, int savings, int loans) {
+        label_balance.setText("Balance: RM " + balance);
+        label_savings.setText("Savings: RM " + savings);
+        label_loans.setText("Loans: RM " + loans);
     }
 }
