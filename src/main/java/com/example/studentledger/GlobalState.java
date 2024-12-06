@@ -5,9 +5,10 @@ package com.example.studentledger;
 public class GlobalState {
     private static GlobalState instance;
     private String name;
-    private int balance;
-    private int savings;
-    private int loans;
+    private String email;
+    private double balance;
+    private double savings;
+    private double loans;
 
     private GlobalState() {}
 
@@ -24,27 +25,33 @@ public class GlobalState {
     public void setName(String name) {
         this.name = name;
     }
-    public int getBalance() {
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    public int getSavings() {
+    public double getSavings() {
         return savings;
     }
 
-    public void setSavings(int savings) {
+    public void setSavings(double savings) {
         this.savings = savings;
     }
 
-    public int getLoans() {
+    public double getLoans() {
         return loans;
     }
 
-    public void setLoans(int loans) {
+    public void setLoans(double loans) {
         this.loans = loans;
     }
 }

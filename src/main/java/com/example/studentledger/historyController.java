@@ -22,9 +22,9 @@ public class historyController implements Initializable {
             public void handle(ActionEvent event) {
                 GlobalState state = GlobalState.getInstance();
                 String name = state.getName();
-                int balance = state.getBalance();
-                int savings = state.getSavings();
-                int loans = state.getLoans();
+                double balance = state.getBalance();
+                double savings = state.getSavings();
+                double loans = state.getLoans();
                 DBUtils.changeScene(event, "home.fxml", "Welcome Back", name, balance,savings,loans);
             }
         });

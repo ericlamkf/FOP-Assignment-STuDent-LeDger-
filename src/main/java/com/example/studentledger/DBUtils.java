@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class DBUtils {
 
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String name, int balance, int savings, int loans) {
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String name, double balance, double savings, double loans) {
         Parent root = null;
 
         if(name!=null) {
@@ -200,6 +200,111 @@ public class DBUtils {
             }
             if(connection!=null){
                 try{
+                    connection.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void debit(double amount){
+        Connection connection = null;
+        PreparedStatement psAlter = null;
+        PreparedStatement psUpdate = null;
+        ResultSet resultSet = null;
+
+        try{
+            GlobalState state = GlobalState.getInstance();
+            String name = state.getName();
+
+            //TO PERFORM CALCULATION
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
+            psAlter = connection.prepareStatement("UPDATE users SET balance = balance + ? WHERE name = ?");
+            psAlter.setDouble(1, amount);
+            psAlter.setString(2, name);
+            psAlter.executeUpdate();
+
+            //TO UPDATE THE LATEST VALUE TO THE GLOBAL STATE
+            psUpdate = connection.prepareStatement("SELECT balance FROM users WHERE name = ?");
+            psUpdate.setString(1, name);
+            resultSet = psUpdate.executeQuery();
+
+            if(resultSet.next()){
+                double balance = resultSet.getDouble("balance");
+                state.setBalance(balance);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            if(resultSet!=null){
+                try{
+                    resultSet.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+
+            if(psAlter!=null){
+                try {
+                    psAlter.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(connection!=null){
+                try {
+                    connection.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void credit(double amount){
+        Connection connection = null;
+        PreparedStatement psAlter = null;
+        PreparedStatement psUpdate = null;
+        ResultSet resultSet = null;
+
+        try{
+            GlobalState state = GlobalState.getInstance();
+            String name = state.getName();
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
+            psAlter = connection.prepareStatement("UPDATE users SET balance = balance - ? WHERE name = ?");
+            psAlter.setDouble(1, amount);
+            psAlter.setString(2, name);
+            psAlter.executeUpdate();
+
+            psUpdate = connection.prepareStatement("SELECT balance FROM users WHERE name = ?");
+            psUpdate.setString(1, name);
+            resultSet = psUpdate.executeQuery();
+
+            if(resultSet.next()){
+                double balance = resultSet.getDouble("balance");
+                state.setBalance(balance);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if(resultSet!=null){
+                try{
+                    resultSet.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(psAlter!=null){
+                try {
+                    psAlter.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(connection!=null){
+                try {
                     connection.close();
                 }catch(SQLException e){
                     e.printStackTrace();

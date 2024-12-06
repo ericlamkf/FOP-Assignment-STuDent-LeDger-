@@ -2,11 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentledger.debitController" >
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentledger.debitController">
    <children>
       <HBox layoutX="-1.0" prefHeight="55.0" prefWidth="614.0" style="-fx-background-color: #E96151;" />
       <Button fx:id="button_back" layoutX="512.0" layoutY="18.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="66.0" style="-fx-background-color: #E4E4E3; -fx-border-color: #F9F8F6; -fx-cursor: hand;" text="BACK">
@@ -14,10 +16,40 @@
             <Font name="Arial Rounded MT Bold" size="11.0" />
          </font>
       </Button>
-      <Label layoutX="260.0" layoutY="68.0" text="DEBIT">
+      <Label layoutX="261.0" layoutY="61.0" text="DEBIT" textFill="#00000099">
          <font>
             <Font name="Arial Rounded MT Bold" size="30.0" />
          </font>
       </Label>
+      <Label layoutX="103.0" layoutY="143.0" text="Enter Amount   :   RM">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tf_amount" alignment="TOP_LEFT" layoutX="317.0" layoutY="140.0" prefHeight="30.0" prefWidth="122.0" promptText="0.00">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="105.0" layoutY="215.0" text="Description       :">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tf_description" layoutX="276.0" layoutY="209.0" prefHeight="36.0" prefWidth="264.0" promptText="Write some descriptions about this transaction." />
+      <Label layoutX="227.0" layoutY="369.0" text="We Care About Your Money " textFill="#000000a1">
+         <font>
+            <Font name="Microsoft JhengHei UI Light" size="12.0" />
+         </font>
+      </Label>
+      <Line endX="100.0" layoutX="114.0" layoutY="377.0" startX="-85.60000610351562" stroke="#0000007d" />
+      <Line endX="100.0" layoutX="483.0" layoutY="377.0" startX="-85.60000610351562" stroke="#0000007d" />
+      <Line endX="132.20001220703125" endY="-1.52587890625E-5" layoutX="114.0" layoutY="79.0" startX="-85.60000610351562" stroke="#0000007d" />
+      <Line endX="100.0" layoutX="483.0" layoutY="79.0" startX="-112.79998779296875" startY="-1.52587890625E-5" stroke="#0000007d" />
+      <Button fx:id="button_debit" layoutX="105.0" layoutY="280.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="440.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="DEBIT">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

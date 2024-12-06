@@ -95,9 +95,9 @@ public class HomeController implements Initializable {
         label_welcome.setText("Welcome "+ name + " ! ");
     }
 
-    public void setBalance(final int balance, final int savings, final int loans) {
-        label_balance.setText("Balance: RM " + balance);
-        label_savings.setText("Savings: RM " + savings);
-        label_loans.setText("Loans: RM " + loans);
+    public void setBalance(final double balance, final double savings, final double loans) {
+        label_balance.setText(String.format("Balance: RM %.2f", balance));
+        label_savings.setText(String.format("Savings: RM %.2f", savings));
+        label_loans.setText(String.format("Loans: RM %.2f", loans));
     }
 }
