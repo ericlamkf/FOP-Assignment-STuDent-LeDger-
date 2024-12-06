@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.regex.Pattern;
 
 public class DBUtils {
 
@@ -47,6 +48,14 @@ public class DBUtils {
         ResultSet resultSet = null;
 
         try{
+            String validAnot = validInputs(name, email, password);
+            if(!validAnot.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(validAnot);
+                alert.show();
+                return;
+            }
+
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
             psCheckUserExists = connection.prepareStatement("SELECT * FROM users WHERE email = ?");
             psCheckUserExists.setString(1, email);
@@ -103,6 +112,34 @@ public class DBUtils {
                 }
             }
         }
+    }
+
+    private static String validInputs(String name, String email, String password) {
+        //CHECK for name
+        if(!name.matches("[a-zA-Z0-9 ]+"))
+            return "Name must be alphanumeric and cannot contain special characters.";
+
+        //CHECK for email
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        if(!Pattern.matches(emailRegex, email))
+            return "Invalid email format. Please enter a valid email (e.g., name@example.com).";
+
+        //CHECK for password
+        if(password.length()<=8)
+            return "Password must be at least 8 characters long.";
+        if(!password.matches(".*[!@#$%^&*(),.?\":{}|<>].*"))
+            return "Password must contains at least one special character.";
+        if (!password.matches(".*[A-Z].*")) {
+            return "Password must contain at least one uppercase letter.";
+        }
+        if (!password.matches(".*[a-z].*")) {
+            return "Password must contain at least one lowercase letter.";
+        }
+        if (!password.matches(".*\\d.*")) {
+            return "Password must contain at least one number.";
+        }
+
+        return "";//一个错都没有
     }
 
     public static void loginInUser(ActionEvent event, String name, String email, String password, int balance, int savings, int loans) {
