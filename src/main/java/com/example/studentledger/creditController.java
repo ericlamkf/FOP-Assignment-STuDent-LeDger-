@@ -49,9 +49,27 @@ public class creditController implements Initializable {
                         alert.setContentText("You do not have enough balance.");
                         alert.showAndWait();
                     }
+                    else if(Double.parseDouble(tf_amount.getText())<0 || Double.parseDouble(tf_amount.getText()) > 99999999){
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Error");
+                        alert.setContentText("Please enter a positive amount or less than 99999999.");
+                        alert.showAndWait();
+                    }
+                    else if(tf_description.getText().trim().length() > 100){
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Error");
+                        alert.setContentText("Please enter a description of less than 100 characters.");
+                        alert.showAndWait();
+                    }
                     else if(!tf_description.getText().isEmpty()){
                         String name = state.getName();
                         DBUtils.credit(Double.parseDouble(tf_amount.getText()));
+
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Congratulations");
+                        alert.setContentText(String.format("RM %.2f of credit has been recorded successfully.", Double.parseDouble(tf_amount.getText())));
+                        alert.show();
+
                         double balance = state.getBalance();
                         double savings = state.getSavings();
                         double loans = state.getLoans();

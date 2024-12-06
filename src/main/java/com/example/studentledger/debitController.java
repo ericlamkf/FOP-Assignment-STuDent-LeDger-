@@ -49,10 +49,29 @@ public class debitController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 GlobalState state = GlobalState.getInstance();
+                double amount = Double.parseDouble(tf_amount.getText());
                 try {
-                    if(!tf_description.getText().isEmpty()) {
-                        double amount = Double.parseDouble(tf_amount.getText());
+                    if(amount < 0 || amount > 99999999) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Error");
+                        alert.setContentText("Please enter a positive amount or less than 99999999.");
+                        alert.showAndWait();
+                    }
+                    else if(tf_description.getText().trim().length() > 100){
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Error");
+                        alert.setContentText("Please enter a description of less than 100 characters.");
+                        alert.showAndWait();
+                    }
+                    else if(!tf_description.getText().isEmpty()) {
+
                         DBUtils.debit(amount);
+
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Congratulations !");
+                        alert.setContentText(String.format("RM %.2f of debit has been recorded successfully.", amount));
+                        alert.showAndWait();
+
                         String name = state.getName();
                         double balance = state.getBalance();
                         double savings = state.getSavings();
