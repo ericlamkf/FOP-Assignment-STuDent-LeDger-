@@ -14,6 +14,18 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button button_logout;
+    @FXML
+    private Button button_debit;
+    @FXML
+    private Button button_credit;
+    @FXML
+    private Button button_history;
+    @FXML
+    private Button button_savings;
+    @FXML
+    private Button button_credit_loans;
+    @FXML
+    private Button button_DPI;
 
     @FXML
     private Label label_welcome;
@@ -35,13 +47,55 @@ public class HomeController implements Initializable {
             }
         });
 
+        button_debit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DBUtils.changeScene(event, "debit.fxml", "Debit", null,0,0,0);
+            }
+        });
+
+        button_credit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DBUtils.changeScene(event, "credit.fxml", "Credit", null,0,0,0);
+            }
+        });
+
+        button_history.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DBUtils.changeScene(event, "history.fxml", "History", null,0,0,0);
+            }
+        });
+
+        button_savings.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DBUtils.changeScene(event, "savings.fxml", "Savings", null,0,0,0);
+            }
+        });
+
+        button_credit_loans.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DBUtils.changeScene(event, "credit_loan.fxml", "Credit Loans", null,0,0,0);
+            }
+        });
+
+        button_DPI.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DBUtils.changeScene(event, "deposit_interest_predictor.fxml", "Deposit Interest Predictor", null,0,0,0);
+            }
+        });
+
     }
 
     public void setUserInformation(String name) {
         label_welcome.setText("Welcome "+ name + " ! ");
     }
 
-    public void setBalance(int balance, int savings, int loans) {
+    public void setBalance(final int balance, final int savings, final int loans) {
         label_balance.setText("Balance: RM " + balance);
         label_savings.setText("Savings: RM " + savings);
         label_loans.setText("Loans: RM " + loans);

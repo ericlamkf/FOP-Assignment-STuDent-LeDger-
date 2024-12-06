@@ -39,6 +39,7 @@ public class DBUtils {
         stage.show();
     }
 
+
     public static void signUpUser(ActionEvent event, String name, String email, String password) {
         Connection connection = null;
         PreparedStatement psInsert = null;
@@ -57,10 +58,15 @@ public class DBUtils {
                 alert.setContentText("This email already exists");
                 alert.show();
             }else {
+                GlobalState state = GlobalState.getInstance();
                 psInsert = connection.prepareStatement("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
                 psInsert.setString(1, name);
                 psInsert.setString(2, email);
                 psInsert.setString(3, password);
+                state.setName(name);
+                state.setBalance(0);
+                state.setSavings(0);
+                state.setLoans(0);
                 psInsert.executeUpdate();
 
                 changeScene(event, "home.fxml", "Welcome Back", name, 0, 0, 0 );
@@ -120,9 +126,14 @@ public class DBUtils {
                     String retrivedPassword = resultSet.getString("password");
 
                     if(retrivedPassword.equals(password)){
+                        GlobalState state = GlobalState.getInstance();
                         balance = resultSet.getInt("balance");
                         savings = resultSet.getInt("savings");
                         loans = resultSet.getInt("loans");
+                        state.setName(name);
+                        state.setBalance(balance);
+                        state.setSavings(savings);
+                        state.setLoans(loans);
                         changeScene(event, "home.fxml", "Welcome Back", name, balance, savings, loans);
                     }else{
                         System.out.println("Incorrect password");

@@ -16,6 +16,8 @@ public class loginController implements Initializable {
     private Button button_login;
     @FXML
     private Button button_sign_up;
+    @FXML
+    private Button button_back;
 
     @FXML
     private TextField tf_name;

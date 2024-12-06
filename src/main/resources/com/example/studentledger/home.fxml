@@ -8,17 +8,12 @@
 
 <AnchorPane fx:id="savings" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentledger.HomeController">
    <children>
-      <HBox layoutX="-9.0" layoutY="-2.0" prefHeight="56.0" prefWidth="612.0" style="-fx-background-color: #E96151;" />
+      <HBox layoutX="-5.0" layoutY="-2.0" prefHeight="56.0" prefWidth="612.0" style="-fx-background-color: #E96151;" />
       <Button fx:id="button_logout" layoutX="519.0" layoutY="14.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="66.0" style="-fx-background-color: #E4E4E3; -fx-border-color: #F9F8F6; -fx-cursor: hand;" text="LOGOUT">
          <font>
             <Font name="Arial Rounded MT Bold" size="11.0" />
          </font>
       </Button>
-      <Label fx:id="label_welcome" alignment="TOP_CENTER" layoutX="14.0" layoutY="26.0" text="Welcome">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="20.0" />
-         </font>
-      </Label>
       <Label fx:id="label_balance" alignment="TOP_CENTER" layoutX="14.0" layoutY="75.0" text="Balance : " textFill="#6b6969">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
@@ -34,7 +29,7 @@
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="199.0" layoutY="138.0" text="T R A N S A C T I O N S">
+      <Label layoutX="206.0" layoutY="137.0" text="T R A N S A C T I O N S">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
@@ -69,5 +64,10 @@
             <Font name="Candara" size="10.0" />
          </font>
       </Button>
+      <Label fx:id="label_welcome" alignment="TOP_CENTER" layoutX="17.0" layoutY="14.0" text="Welcome">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
