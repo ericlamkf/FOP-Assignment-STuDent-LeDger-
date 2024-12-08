@@ -67,13 +67,16 @@ public class debitController implements Initializable {
 
                         DBUtils.debit(amount);
 
+                        int user_id = state.getUser_id();
+                        double balance = state.getBalance();
+                        DBUtils.insertData(user_id, tf_description.getText(),"Debit",amount, balance);
+
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Congratulations !");
                         alert.setContentText(String.format("RM %.2f of debit has been recorded successfully.", amount));
                         alert.showAndWait();
 
                         String name = state.getName();
-                        double balance = state.getBalance();
                         double savings = state.getSavings();
                         double loans = state.getLoans();
                         DBUtils.changeScene(event, "home.fxml", "Welcome Back", name,balance,savings,loans);

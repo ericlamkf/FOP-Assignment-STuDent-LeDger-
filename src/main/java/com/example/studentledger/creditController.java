@@ -64,9 +64,12 @@ public class creditController implements Initializable {
                     else if(!tf_description.getText().isEmpty()){
                         DBUtils.credit(Double.parseDouble(tf_amount.getText()));
                         String name = state.getName();
+                        int user_id = state.getUser_id();
                         double balance = state.getBalance();
                         double savings = state.getSavings();
                         double loans = state.getLoans();
+
+                        DBUtils.insertData(user_id, tf_description.getText(),"Credit", Double.parseDouble(tf_amount.getText()),balance);
 
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Congratulations");

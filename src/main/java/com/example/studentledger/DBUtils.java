@@ -148,7 +148,7 @@ public class DBUtils {
         ResultSet resultSet = null;
         try{
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
-            preparedStatement = connection.prepareStatement("SELECT password,balance, savings, loans FROM users WHERE name = ? AND email = ?");
+            preparedStatement = connection.prepareStatement("SELECT user_id,password,balance, savings, loans FROM users WHERE name = ? AND email = ?");
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, email);
             resultSet = preparedStatement.executeQuery();
@@ -167,6 +167,7 @@ public class DBUtils {
                         balance = resultSet.getInt("balance");
                         savings = resultSet.getInt("savings");
                         loans = resultSet.getInt("loans");
+                        state.setUser_id(resultSet.getInt("user_id"));
                         state.setName(name);
                         state.setBalance(balance);
                         state.setSavings(savings);
@@ -308,6 +309,41 @@ public class DBUtils {
                 try {
                     connection.close();
                 }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void insertData(int user_id, String description, String transaction_type, double amount, double balance){
+        Connection connection = null;
+        PreparedStatement psInsert = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
+            psInsert = connection.prepareStatement("INSERT INTO transaction_history (user_id, description, transaction_type, amount, balance) VALUES (?,?,?,?,?)");
+            psInsert.setInt(1, user_id);
+            psInsert.setString(2, description);
+            psInsert.setString(3, transaction_type);
+            psInsert.setDouble(4, amount);
+            psInsert.setDouble(5, balance);
+            psInsert.executeUpdate();
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if(psInsert!=null){
+                try {
+                    psInsert.close();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(connection!=null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
