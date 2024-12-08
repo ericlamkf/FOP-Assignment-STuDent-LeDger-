@@ -272,6 +272,7 @@ public class DBUtils {
         try{
             GlobalState state = GlobalState.getInstance();
             String name = state.getName();
+
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
             psAlter = connection.prepareStatement("UPDATE users SET balance = balance - ? WHERE name = ?");
             psAlter.setDouble(1, amount);
