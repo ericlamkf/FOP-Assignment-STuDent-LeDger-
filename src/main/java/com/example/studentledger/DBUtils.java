@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.PipedReader;
 import java.sql.*;
 import java.util.regex.Pattern;
 
@@ -213,11 +214,21 @@ public class DBUtils {
         Connection connection = null;
         PreparedStatement psAlter = null;
         PreparedStatement psUpdate = null;
+        PreparedStatement psSavings = null;
         ResultSet resultSet = null;
 
         try{
             GlobalState state = GlobalState.getInstance();
             String name = state.getName();
+            double percentage = state.getPercentage();
+            boolean YesOrNo = state.getIsON();
+            double savings = 0;
+
+            //TO PERFORM SAVINGS CALCULATION
+            if(YesOrNo){
+                savings = amount * percentage/100;
+                amount = amount * ((100-percentage)/100);
+            }
 
             //TO PERFORM CALCULATION
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
@@ -226,14 +237,23 @@ public class DBUtils {
             psAlter.setString(2, name);
             psAlter.executeUpdate();
 
+
+            //ADD THE SAVED AMOUNT TO THE SAVING
+            psSavings = connection.prepareStatement("UPDATE users SET savings = savings + ? WHERE name = ?");
+            psSavings.setDouble(1, savings);
+            psSavings.setString(2, name);
+            psSavings.executeUpdate();
+
             //TO UPDATE THE LATEST VALUE TO THE GLOBAL STATE
-            psUpdate = connection.prepareStatement("SELECT balance FROM users WHERE name = ?");
+            psUpdate = connection.prepareStatement("SELECT balance, savings FROM users WHERE name = ?");
             psUpdate.setString(1, name);
             resultSet = psUpdate.executeQuery();
 
             if(resultSet.next()){
                 double balance = resultSet.getDouble("balance");
                 state.setBalance(balance);
+                savings = resultSet.getInt("savings");
+                state.setSavings(savings);
             }
 
         }catch(SQLException e){

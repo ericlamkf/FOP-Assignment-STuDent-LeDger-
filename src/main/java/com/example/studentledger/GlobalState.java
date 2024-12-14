@@ -11,6 +11,9 @@ public class GlobalState {
     private double savings;
     private double loans;
     private String transaction_type;
+    private double percentage;
+    private String savingMode;
+    private boolean isON;
 
     private GlobalState() {}
 
@@ -21,6 +24,18 @@ public class GlobalState {
         return instance;
     }
 
+    public boolean getIsON() {
+        return isON;
+    }
+    public void setIsON(boolean isON) {
+        this.isON = isON;
+    }
+    public String getSavingMode(){
+        return savingMode;
+    }
+    public void setSavingMode(String savingMode) {
+        this.savingMode = savingMode;
+    }
     public String getName() {
         return name;
     }
@@ -32,6 +47,12 @@ public class GlobalState {
     }
     public void setTransaction_type(String transaction_type) {
         this.transaction_type = transaction_type;
+    }
+    public double getPercentage() {
+        return percentage;
+    }
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
     }
     public int getUser_id() {return user_id;}
     public void setUser_id(int user_id) {

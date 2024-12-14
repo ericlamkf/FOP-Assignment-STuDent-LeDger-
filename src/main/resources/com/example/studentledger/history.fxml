@@ -34,14 +34,24 @@
             <Font name="Arial Rounded MT Bold" size="26.0" />
          </font>
       </Label>
-      <Label layoutX="222.0" layoutY="370.0" text="We Care About Your Money " textFill="#000000a1">
+      <Label layoutX="222.0" layoutY="377.0" text="We Care About Your Money " textFill="#000000a1">
          <font>
             <Font name="Microsoft JhengHei UI Light" size="12.0" />
          </font>
       </Label>
-      <Line endX="100.0" layoutX="109.0" layoutY="378.0" startX="-85.60000610351562" stroke="#0000007d" />
-      <Line endX="100.0" layoutX="478.0" layoutY="378.0" startX="-85.60000610351562" stroke="#0000007d" />
+      <Line endX="100.0" layoutX="109.0" layoutY="386.0" startX="-85.60000610351562" stroke="#0000007d" />
+      <Line endX="100.0" layoutX="478.0" layoutY="386.0" startX="-85.60000610351562" stroke="#0000007d" />
       <Line endX="100.0" layoutX="109.0" layoutY="77.0" startX="-85.60000610351562" stroke="#0000007d" />
       <Line endX="100.0" layoutX="478.0" layoutY="77.0" startX="-85.60000610351562" stroke="#0000007d" />
+      <Button fx:id="button_csv" layoutX="16.0" layoutY="353.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="141.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Export as CSV File" textFill="#0000008b">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="button_delete" layoutX="444.0" layoutY="353.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="141.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Delete All History" textFill="#0000008b">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

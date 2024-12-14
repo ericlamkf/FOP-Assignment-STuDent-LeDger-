@@ -26,12 +26,17 @@ public class debitController implements Initializable {
     private Button button_debit;
 
     @FXML
+    private Label label_savingMode;
+
+    @FXML
     private TextField tf_amount;
     @FXML
     private TextField tf_description;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        label_savingMode.setText(savingMode());
 
         button_back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -71,10 +76,17 @@ public class debitController implements Initializable {
                         double balance = state.getBalance();
                         DBUtils.insertData(user_id, tf_description.getText(),"Debit",amount, balance);
 
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Congratulations !");
-                        alert.setContentText(String.format("RM %.2f of debit has been recorded successfully.", amount));
-                        alert.showAndWait();
+                        if(state.getIsON()){
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Congratulations !");
+                            alert.setContentText(String.format("RM %.2f of debit has been recorded and %.2f of debit amount is saved into savings successfully.", amount*(100 - state.getPercentage())/100, state.getPercentage()));
+                            alert.showAndWait();}
+                        else{
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Congratulations !");
+                            alert.setContentText(String.format("RM %.2f of debit has been recorded successfully.", amount));
+                            alert.showAndWait();
+                        }
 
                         String name = state.getName();
                         double savings = state.getSavings();
@@ -98,5 +110,14 @@ public class debitController implements Initializable {
             }
         });
 
+    }
+    private String savingMode() {
+        GlobalState state = GlobalState.getInstance();
+        if(state.getIsON()){
+            state.setSavingMode("SAVING : ON");
+        }else {
+            state.setSavingMode("SAVING : OFF");
+        }
+        return state.getSavingMode();
     }
 }
