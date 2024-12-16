@@ -30,6 +30,9 @@ public class savingsController implements Initializable {
         yes_radiobutton.setToggleGroup(toggleGroup);
         no_radiobutton.setToggleGroup(toggleGroup);
 
+        //DEFAULT SET TO NO
+        no_radiobutton.setSelected(true);
+
         tf_percentage.setDisable(true);
 
         yes_radiobutton.setOnAction(e -> handleRadioSelection(true));

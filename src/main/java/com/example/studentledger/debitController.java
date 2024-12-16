@@ -79,7 +79,7 @@ public class debitController implements Initializable {
                         if(state.getIsON()){
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("Congratulations !");
-                            alert.setContentText(String.format("RM %.2f of debit has been recorded and %.2f of debit amount is saved into savings successfully.", amount*(100 - state.getPercentage())/100, state.getPercentage()));
+                            alert.setContentText(String.format("RM %.2f of debit has been recorded and %.2f % of debit amount is saved into savings successfully.", amount*(100 - state.getPercentage())/100, state.getPercentage()));
                             alert.showAndWait();}
                         else{
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
