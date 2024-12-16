@@ -26,12 +26,18 @@ public class savingsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        GlobalState state = GlobalState.getInstance();
+        boolean isOn = state.getIsON();
         ToggleGroup toggleGroup = new ToggleGroup();
         yes_radiobutton.setToggleGroup(toggleGroup);
         no_radiobutton.setToggleGroup(toggleGroup);
 
         //DEFAULT SET TO NO
-        no_radiobutton.setSelected(true);
+        if(isOn){
+            yes_radiobutton.setSelected(true);
+        }else{
+            no_radiobutton.setSelected(true);
+        }
 
         tf_percentage.setDisable(true);
 
