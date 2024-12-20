@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -11,35 +12,41 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentledger.chartsController">
    <children>
+      <Line endX="100.0" layoutX="119.0" layoutY="386.0" startX="-85.60000610351562" stroke="#0000007d" />
+      <Line endX="100.0" layoutX="488.0" layoutY="386.0" startX="-114.4000244140625" stroke="#0000007d" />
+      <Label layoutX="175.0" layoutY="154.0" text="So Empty Here ... " textFill="#000000b4">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="184.0" layoutY="208.0" text="Click on File to choose something to display" textFill="#0000008a" />
       <BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0">
          <top>
             <MenuBar prefHeight="26.0" prefWidth="600.0" style="-fx-background-color: #E96151;" BorderPane.alignment="CENTER">
-              <menus>
-                <Menu mnemonicParsing="false" text="Bar Charts">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#handleSpendingTrendsCredit" text="Spending Trends (Credit)" />
+               <menus>
+                  <Menu mnemonicParsing="false" text="Bar Charts">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleSpendingTrendsCredit" text="Spending Trends (Credit)" />
                         <MenuItem mnemonicParsing="false" onAction="#handleSpendingTrendsDebit" text="Spending Trends (Debit)" />
                         <MenuItem mnemonicParsing="false" onAction="#handleSavingsGrowth" text="Savings Growth" />
                         <MenuItem mnemonicParsing="false" onAction="#handleLoansRepayment" text="Loans Repayment Over Time" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Back" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Spending Distribution">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Back" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
             </MenuBar>
          </top>
       </BorderPane>
-      <Line endX="100.0" layoutX="119.0" layoutY="386.0" startX="-85.60000610351562" stroke="#0000007d" />
-      <Line endX="100.0" layoutX="488.0" layoutY="386.0" startX="-114.4000244140625" stroke="#0000007d" />
-      <Button fx:id="button_back" layoutX="529.0" layoutY="24.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="66.0" style="-fx-background-color: #E4E4E3; -fx-border-color: #F9F8F6; -fx-cursor: hand;" text="BACK">
+      <Button fx:id="button_back" layoutX="533.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="64.0" style="-fx-background-color: #E4E4E3; -fx-border-color: #F9F8F6; -fx-cursor: hand;" text="BACK">
          <font>
             <Font name="Arial Rounded MT Bold" size="11.0" />
          </font>

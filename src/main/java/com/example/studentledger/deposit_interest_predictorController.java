@@ -82,7 +82,6 @@ public class deposit_interest_predictorController implements Initializable {
                                 ps.setString(1, dropdown_bank_name.getValue());
                                 ResultSet rs = ps.executeQuery();
 
-
                                 if(rs.next()){
                                     double interestRate = rs.getDouble("interest_rate");
                                     double interest = calculateInterest(Double.parseDouble(tf_deposit.getText()), interestRate,selectedFrequency);

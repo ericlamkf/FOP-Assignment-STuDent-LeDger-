@@ -88,7 +88,7 @@
       <Line endX="100.0" layoutX="495.0" layoutY="148.0" startX="-72.79998779296875" startY="1.52587890625E-5" stroke="#0000007d" />
       <Label fx:id="label_disabled" layoutX="62.0" layoutY="252.0" text="Debit and Credit " textFill="RED">
          <font>
-            <Font name="Arial Black" size="12.0" />
+            <Font name="Calibri" size="13.0" />
          </font>
       </Label>
    </children>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,10 +12,10 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentledger.historyController">
    <children>
-      <TableView fx:id="tableView" layoutX="16.0" layoutY="103.0" prefHeight="250.0" prefWidth="569.0" style="-fx-background-color: #F1A096;">
+      <TableView fx:id="tableView" layoutX="17.0" layoutY="103.0" prefHeight="250.0" prefWidth="569.0" style="-fx-background-color: #F1A096;">
         <columns>
-          <TableColumn fx:id="dateColumn" prefWidth="115.20001602172852" style="-fx-background-color: #F1A096;" text="DATE" />
-          <TableColumn fx:id="descriptionColumn" prefWidth="140.7999725341797" style="-fx-background-color: #F1A096;" text="DESCRIPTION" />
+          <TableColumn fx:id="dateColumn" prefWidth="136.00000381469727" style="-fx-background-color: #F1A096;" text="DATE" />
+          <TableColumn fx:id="descriptionColumn" prefWidth="120.79997253417969" style="-fx-background-color: #F1A096;" text="DESCRIPTION" />
             <TableColumn fx:id="debitColumn" prefWidth="92.800048828125" style="-fx-background-color: #F1A096;" text="DEBIT" />
             <TableColumn fx:id="creditColumn" prefWidth="93.5999755859375" style="-fx-background-color: #F1A096;" text="CREDIT" />
             <TableColumn fx:id="balanceColumn" prefWidth="124.800048828125" style="-fx-background-color: #F1A096;" text="BALANCE" />
@@ -41,18 +42,18 @@
       </Label>
       <Line endX="100.0" layoutX="109.0" layoutY="386.0" startX="-85.60000610351562" stroke="#0000007d" />
       <Line endX="100.0" layoutX="478.0" layoutY="386.0" startX="-85.60000610351562" stroke="#0000007d" />
-      <Line endX="100.0" layoutX="109.0" layoutY="77.0" startX="-85.60000610351562" stroke="#0000007d" />
-      <Line endX="100.0" layoutX="478.0" layoutY="77.0" startX="-85.60000610351562" stroke="#0000007d" />
-      <Button fx:id="button_csv" layoutX="16.0" layoutY="353.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="141.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Export as CSV File" textFill="#0000008b">
+      <Button fx:id="button_csv" layoutX="17.0" layoutY="353.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="141.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Export as CSV File" textFill="#0000008b">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="button_delete" layoutX="444.0" layoutY="353.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="141.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Delete All History" textFill="#0000008b">
+      <Button fx:id="button_delete" layoutX="445.0" layoutY="353.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="141.0" style="-fx-background-color: #E96151; -fx-cursor: hand;" text="Delete All History" textFill="#0000008b">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Button>
       <Button fx:id="button_piecharts" layoutX="197.0" layoutY="352.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Wanna see everything in PieCharts ?" textFill="#1a63ff" underline="true" />
+      <ComboBox fx:id="filterBox" layoutX="393.0" layoutY="78.0" prefHeight="26.0" prefWidth="194.0" promptText="                        Filter" style="-fx-background-color: #E96151;" />
+      <ComboBox fx:id="sortBox" layoutX="15.0" layoutY="78.0" prefHeight="26.0" prefWidth="193.0" promptText="                      Sort" style="-fx-background-color: #E96151;" />
    </children>
 </AnchorPane>
