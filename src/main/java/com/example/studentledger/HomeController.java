@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
@@ -36,10 +38,25 @@ public class HomeController implements Initializable {
     private Label label_savings;
     @FXML
     private Label label_loans;
+    @FXML
+    private Label label_disabled;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        GlobalState state = GlobalState.getInstance();
+        LocalDate dateline = state.getDateline();
+
+        if(dateline == null) {
+            label_disabled.setText("");
+        }else {
+            button_debit.setDisable(true);
+            button_credit.setDisable(true);
+            button_debit.setStyle("-fx-background-color: gray;");
+            button_credit.setStyle("-fx-background-color: gray;");
+            label_disabled.setText("Debit and Credit are disabled because you haven't clear off the loans yet");
+        }
+
 
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -56,6 +73,8 @@ public class HomeController implements Initializable {
         button_debit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                GlobalState state = GlobalState.getInstance();
+                LocalDate date = LocalDate.now();
                 DBUtils.changeScene(event, "debit.fxml", "Debit", null,0,0,0);
             }
         });

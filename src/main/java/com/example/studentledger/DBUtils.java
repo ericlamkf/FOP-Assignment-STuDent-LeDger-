@@ -8,9 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.io.PipedReader;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.regex.Pattern;
 
 public class DBUtils {
@@ -143,7 +147,7 @@ public class DBUtils {
         return "";//一个错都没有
     }
 
-    public static void loginInUser(ActionEvent event, String name, String email, String password, int balance, int savings, int loans) {
+    public static void loginInUser(ActionEvent event, String name, String email, String password, double balance, double savings, double loans) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -165,9 +169,9 @@ public class DBUtils {
 
                     if(retrivedPassword.equals(password)){
                         GlobalState state = GlobalState.getInstance();
-                        balance = resultSet.getInt("balance");
-                        savings = resultSet.getInt("savings");
-                        loans = resultSet.getInt("loans");
+                        balance = resultSet.getDouble("balance");
+                        savings = resultSet.getDouble("savings");
+                        loans = resultSet.getDouble("loans");
                         state.setUser_id(resultSet.getInt("user_id"));
                         state.setName(name);
                         state.setBalance(balance);
@@ -215,11 +219,13 @@ public class DBUtils {
         PreparedStatement psAlter = null;
         PreparedStatement psUpdate = null;
         PreparedStatement psSavings = null;
+        PreparedStatement psDatabase = null;
         ResultSet resultSet = null;
 
         try{
             GlobalState state = GlobalState.getInstance();
             String name = state.getName();
+            int user_id = state.getUser_id();
             double percentage = state.getPercentage();
             boolean YesOrNo = state.getIsON();
             double savings = 0;
@@ -237,6 +243,11 @@ public class DBUtils {
             psAlter.setString(2, name);
             psAlter.executeUpdate();
 
+            //ADD THE SAVED AMOUNT TO THE SAVINGS DATABASE
+            psDatabase = connection.prepareStatement("INSERT INTO savings (user_id, amount) VALUES (?,?)");
+            psDatabase.setInt(1, user_id);
+            psDatabase.setDouble(2, savings);
+            psDatabase.executeUpdate();
 
             //ADD THE SAVED AMOUNT TO THE SAVING
             psSavings = connection.prepareStatement("UPDATE users SET savings = savings + ? WHERE name = ?");
@@ -255,6 +266,7 @@ public class DBUtils {
                 savings = resultSet.getInt("savings");
                 state.setSavings(savings);
             }
+
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -332,6 +344,74 @@ public class DBUtils {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public static void loans(double amount, double rate, double period, String period_type){
+        GlobalState state = GlobalState.getInstance();
+        int user_id = state.getUser_id();
+        double nt, repayment_amount;
+        if (amount <= 0 || rate <= 0 || period <= 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Please enter a positive number");
+            alert.showAndWait();
+        }
+        if(period_type.equals("monthly")){
+            nt = 12 * period;
+            repayment_amount = (amount * (rate/1200))/(1-Math.pow((1+(rate/1200)),-nt));
+            state.setLoans(repayment_amount);
+        }else if(period_type.equals("annually")){
+            repayment_amount = (amount * (rate/100))/(1-Math.pow((1+(rate/100)),-period));
+            state.setLoans(repayment_amount);
+        }
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
+            PreparedStatement psUpdate = connection.prepareStatement("UPDATE users SET loans = ? WHERE user_id = ? ");
+            psUpdate.setDouble(1,state.getLoans());
+            psUpdate.setInt(2,state.getUser_id());
+            psUpdate.executeUpdate();
+
+            PreparedStatement psInsert = connection.prepareStatement("INSERT INTO credit_loan (user_id, principal_amount,interest_rate,repayment_period) VALUES (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            psInsert.setInt(1,state.getUser_id());
+            psInsert.setDouble(2,amount);
+            psInsert.setDouble(3,rate);
+            psInsert.setDouble(4,period);
+            psInsert.executeUpdate();
+
+            ResultSet rs = psInsert.getGeneratedKeys();
+
+            if(rs.next()){
+                if(period_type.equals("monthly")){
+                    PreparedStatement psDateline = connection.prepareStatement("UPDATE credit_loan SET dateline = DATE_ADD(created_at, INTERVAL 1 MONTH) WHERE loan_id = ?\n");
+                    psDateline.setInt(1,rs.getInt(1));
+                    psDateline.executeUpdate();}
+                else if(period_type.equals("annually")){
+                    PreparedStatement psDateline = connection.prepareStatement("UPDATE credit_loan SET dateline = DATE_ADD(created_at, INTERVAL 1 YEAR) WHERE loan_id = ?\n");
+                    psDateline.setInt(1,rs.getInt(1));
+                    psDateline.executeUpdate();
+                }
+            }
+
+            PreparedStatement psRetrived = connection.prepareStatement("SELECT dateline FROM credit_loan WHERE loan_id = ?");
+            psRetrived.setInt(1,rs.getInt(1));
+            ResultSet rsRetrived = psRetrived.executeQuery();
+            if(rsRetrived.next()){
+                Timestamp timestamp = rsRetrived.getTimestamp("dateline");
+                if(timestamp != null){
+                    LocalDate dateline = timestamp.toLocalDateTime().toLocalDate();
+                    state.setDateline(dateline);
+                }
+
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setContentText("Your transaction has been successfully loaned.");
+            alert.showAndWait();
+
+        }catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

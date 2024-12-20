@@ -2,6 +2,11 @@ package com.example.studentledger;
 
 //used to handle global variables
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class GlobalState {
     private static GlobalState instance;
     private int user_id;
@@ -14,6 +19,8 @@ public class GlobalState {
     private double percentage;
     private String savingMode;
     private boolean isON;
+    private LocalDateTime currentTime;
+    private LocalDate dateline;
 
     private GlobalState() {}
 
@@ -22,6 +29,22 @@ public class GlobalState {
             instance = new GlobalState();
         }
         return instance;
+    }
+    public LocalDateTime getCurrentTime() {
+        return currentTime;
+    }
+    public void setCurrentTime(LocalDateTime currentTime) {
+        this.currentTime = currentTime;
+    }
+    public LocalDate getDateline() {
+        return dateline;
+    }
+    public void setDateline(LocalDate dateline) {
+        this.dateline = dateline;
+    }
+
+    public void updateTime() {
+        currentTime = LocalDateTime.now();
     }
 
     public boolean getIsON() {

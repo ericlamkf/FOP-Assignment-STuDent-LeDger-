@@ -30,7 +30,8 @@ public class historyController implements Initializable {
     private Button button_csv;
     @FXML
     private Button button_delete;
-
+    @FXML
+    private Button button_piecharts;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,6 +82,13 @@ public class historyController implements Initializable {
                 double savings = state.getSavings();
                 double loans = state.getLoans();
                 DBUtils.changeScene(event, "home.fxml", "Welcome Back", name, balance,savings,loans);
+            }
+        });
+
+        button_piecharts.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                DBUtils.changeScene(event, "charts.fxml","PieCharts",null,0,0,0);
             }
         });
 

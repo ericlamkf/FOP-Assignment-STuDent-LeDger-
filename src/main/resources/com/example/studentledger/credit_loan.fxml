@@ -70,13 +70,13 @@
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="tf_period" layoutX="426.0" layoutY="245.0" promptText="Months / Years" />
+      <TextField fx:id="tf_period" layoutX="426.0" layoutY="245.0" promptText="Year(s)" />
       <RadioButton fx:id="radio_monthly" layoutX="317.0" layoutY="289.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="76.0" text="Monthly">
          <font>
             <Font name="Bookshelf Symbol 7" size="12.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="radio_period" layoutX="453.0" layoutY="289.0" mnemonicParsing="false" text="Periodically">
+      <RadioButton fx:id="radio_annually" layoutX="453.0" layoutY="289.0" mnemonicParsing="false" text="Annually">
          <font>
             <Font name="Bookshelf Symbol 7" size="12.0" />
          </font></RadioButton>
@@ -98,6 +98,11 @@
       <Label layoutX="14.0" layoutY="329.0" prefHeight="15.0" prefWidth="150.0" text="Repay your loans sooner .">
          <font>
             <Font name="DengXian Regular" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_dateline" layoutX="21.0" layoutY="102.0" prefHeight="16.0" prefWidth="220.0" text="Dateline : ">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
          </font>
       </Label>
    </children>
