@@ -46,15 +46,16 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         GlobalState state = GlobalState.getInstance();
         LocalDate dateline = state.getDateline();
+        double loans = state.getLoans();
 
-        if(dateline == null) {
+        if(loans == 0) {
             label_disabled.setText("");
         }else {
             button_debit.setDisable(true);
             button_credit.setDisable(true);
             button_debit.setStyle("-fx-background-color: gray;");
             button_credit.setStyle("-fx-background-color: gray;");
-            label_disabled.setText("Debit and Credit are disabled because you haven't clear off the loans yet");
+            label_disabled.setText("Debit and Credit are disabled because you haven't clear off the loans yet. Please repay before " + dateline);
         }
 
 
