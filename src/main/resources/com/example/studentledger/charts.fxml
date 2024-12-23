@@ -14,12 +14,12 @@
    <children>
       <Line endX="100.0" layoutX="119.0" layoutY="386.0" startX="-85.60000610351562" stroke="#0000007d" />
       <Line endX="100.0" layoutX="488.0" layoutY="386.0" startX="-114.4000244140625" stroke="#0000007d" />
-      <Label layoutX="175.0" layoutY="154.0" text="So Empty Here ... " textFill="#000000b4">
+      <Label fx:id="label_empty" layoutX="175.0" layoutY="154.0" text="So Empty Here ... " textFill="#000000b4">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="184.0" layoutY="208.0" text="Click on File to choose something to display" textFill="#0000008a" />
+      <Label fx:id="label_click" layoutX="184.0" layoutY="208.0" text="Click on File to choose something to display" textFill="#0000008a" />
       <BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0">
          <top>
             <MenuBar prefHeight="26.0" prefWidth="600.0" style="-fx-background-color: #E96151;" BorderPane.alignment="CENTER">
@@ -34,7 +34,8 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Spending Distribution">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Back" />
+                        <MenuItem mnemonicParsing="false" onAction="#handlePieChart" text="Pie Chart" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleBarChart" text="Bar Chart" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Help">

@@ -4,11 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import jdk.jfr.Category;
 
@@ -28,6 +26,11 @@ public class chartsController implements Initializable {
 
     @FXML
     private Button button_back;
+
+    @FXML
+    private Label label_empty;
+    @FXML
+    private Label label_click;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -218,4 +221,94 @@ public class chartsController implements Initializable {
         }
     }
 
+    @FXML
+    private void handlePieChart(ActionEvent event) {
+        GlobalState state = GlobalState.getInstance();
+        Connection connection = null;
+
+        label_click.setText("");
+        label_empty.setText("");
+
+        PieChart pieChart = new PieChart();
+        pieChart.setTitle("Spending Distribution Pie Chart");
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT description, SUM(amount) AS total_amount FROM transaction_history WHERE user_id = ? GROUP BY description"
+            );
+            pstmt.setInt(1, state.getUser_id());
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String description = rs.getString("description");
+                double amount = rs.getDouble("total_amount");
+
+                // Add data to PieChart
+                PieChart.Data slice = new PieChart.Data(description + " (RM " + amount + ")", amount);
+                pieChart.getData().add(slice);
+            }
+
+            // Add PieChart to BorderPane
+            borderPane.setCenter(pieChart);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleBarChart(ActionEvent event) {
+        GlobalState state = GlobalState.getInstance();
+        Connection connection = null;
+
+        // Set up axes
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Category");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Amount (RM)");
+
+        // Create BarChart
+        BarChart<String, Number> barchart = new BarChart<>(xAxis, yAxis);
+        barchart.setTitle("Spending Distribution");
+
+        // Create data series
+        XYChart.Series<String, Number> data = new XYChart.Series<>();
+        data.setName("Spending Distribution");
+
+        try {
+            // Database connection and query
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java-fx-login", "root", "ERIClam.12");
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT description, SUM(amount) AS total_amount FROM transaction_history WHERE user_id = ? GROUP BY description"
+            );
+            pstmt.setInt(1, state.getUser_id());
+            ResultSet rs = pstmt.executeQuery();
+
+            // Populate data
+            while (rs.next()) {
+                String description = rs.getString("description");
+                double amount = rs.getDouble("total_amount");
+                data.getData().add(new XYChart.Data<>(description, amount));
+            }
+
+            // Add data to BarChart
+            barchart.getData().add(data);
+
+            // Add BarChart to BorderPane
+            borderPane.setCenter(barchart);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

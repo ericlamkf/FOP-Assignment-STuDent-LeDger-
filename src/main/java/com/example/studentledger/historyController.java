@@ -113,7 +113,7 @@ public class historyController implements Initializable {
         button_piecharts.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.changeScene(event, "charts.fxml","Bar Charts",null,0,0,0);
+                DBUtils.changeScene(event, "charts.fxml","Charts",null,0,0,0);
             }
         });
 
