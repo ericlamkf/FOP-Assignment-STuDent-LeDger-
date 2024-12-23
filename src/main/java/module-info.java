@@ -6,6 +6,7 @@ module com.example.studentledger {
     requires jdk.jfr;
 
 
+
     opens com.example.studentledger to javafx.fxml;
     exports com.example.studentledger;
 }
