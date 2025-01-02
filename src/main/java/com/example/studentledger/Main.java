@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
-import javax.print.attribute.standard.Media;
 import java.io.IOException;
 
 public class Main extends Application {
