@@ -73,7 +73,7 @@ public class DBUtils {
                 alert.show();
             }else {
                 GlobalState state = GlobalState.getInstance();
-                psInsert = connection.prepareStatement("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+                psInsert = connection.prepareStatement("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                 psInsert.setString(1, name);
                 psInsert.setString(2, email);
                 psInsert.setString(3, password);
@@ -83,7 +83,15 @@ public class DBUtils {
                 state.setLoans(0);
                 psInsert.executeUpdate();
 
-                changeScene(event, "home.fxml", "Welcome Back", name, 0, 0, 0 );
+                ResultSet resultSet1 = psInsert.getGeneratedKeys();
+                if (resultSet1.next()) {
+                    int generatedKey = resultSet1.getInt(1);
+                    state.setUser_id(generatedKey);
+                } else {
+                    throw new SQLException("No ID obtained.");
+                }
+
+                changeScene(event, "home.fxml", "Welcome Back", name, state.getBalance(), state.getSavings(), state.getLoans() );
             }
         }catch(SQLException e){
             e.printStackTrace();
